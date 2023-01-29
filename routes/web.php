@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LayananController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('layanan', [LayananController::class, 'index'])->name('page-layanan');
+Route::post('layanan-submit', [LayananController::class, 'store'])->name('store-layanan');
+
+
