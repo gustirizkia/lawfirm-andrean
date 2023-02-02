@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTulisansTable extends Migration
+class CreateLayanansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateTulisansTable extends Migration
      */
     public function up()
     {
-        Schema::create('tulisans', function (Blueprint $table) {
+        Schema::create('layanans', function (Blueprint $table) {
             $table->id();
-            $table->string("judul");
-            $table->longText('keyword');
-            $table->string('image')->nullable();
-            $table->longText('body');
+            $table->string('nama_layanan');
+            $table->longText('deskripsi');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateTulisansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tulisans');
+        Schema::dropIfExists('layanans');
     }
 }

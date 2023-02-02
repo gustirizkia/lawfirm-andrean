@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Lead;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class LayananController extends Controller
 {
     public function index(Request $request)
     {
-        return view('pages.layanan');
+        $data = DB::table('layanans')->orderBy('id', 'desc')->get();
+
+        return view('pages.layanan', [
+            'items' => $data
+        ]);
     }
 
     public function store(Request $request)

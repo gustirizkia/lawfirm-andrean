@@ -1,10 +1,28 @@
 @extends('layouts.front')
 
 @push('addStyle')
-<link rel="stylesheet" href="{{ asset('vendor/owl-carousel-2.3/owlcarousel/assets/owl.carousel.min.css') }}">
-<link rel="stylesheet" href="{{ asset('vendor/owl-carousel-2.3/owlcarousel/assets/owl.theme.default.css') }}">
-<script src="{{ asset('vendor/owl-carousel-2.3/vendors/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/owl-carousel-2.3/owlcarousel/owl.carousel.js') }}"></script>
+
+{{-- canvas --}}
+
+    <!-- law-firm Demo Specific Stylesheet -->
+    <link rel="stylesheet" href="/demos/law-firm/law-firm.css" type="text/css" />
+    <!-- law-firm Custom Css -->
+    <link
+      rel="stylesheet"
+      href="/demos/law-firm/css/fonts.css"
+      type="text/css"
+    />
+    <!-- law-firm Custom Fonts -->
+    <!-- / -->
+
+    <link rel="stylesheet" href="/css/custom.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="/css/colors.php?color=0F317E" type="text/css" />
+    <link rel="stylesheet" href="/add.css" />
+
+{{-- endcanvas --}}
+
    <style>
         #carouselExampleControls img{
             height: 600px;
@@ -75,7 +93,6 @@
             display: flex;
             -ms-flex-align: center;
             align-items: center;
-            margin-bottom: 2rem;
         }
 
         .title-center::before {
@@ -165,7 +182,56 @@
             font-weight: 300;
         }
 
+        .card__artikel img{
+            border-radius: 6px;
+        }
+
+        .card__artikel .judul{
+            font-size: 16px;
+            margin-top: 3px;
+            margin-bottom: 5px;
+            letter-spacing: -.01em;
+            font-weight: 600;
+            color: #212121;
+        }
+        .card__artikel .date{
+            color: #626262;
+            font-size: 12px;
+        }
+        .row.video__section{
+            max-width: unset;
+        }
+        .tulisan a{
+            color: unset;
+        }
+        .img__artikel{
+            width: 100%;
+            height: 135px;
+            object-fit: cover;
+            object-position: center;
+        }
+
     </style>
+@endpush
+
+@push('addMeta')
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Law Firm | M. Andrean Saefudin & Co">
+    <meta name="description" content=" --- Corporate and Litigation Lawyer ---">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:title" content="Law Firm | M. Andrean Saefudin & Co">
+    <meta property="og:description" content=" --- Corporate and Litigation Lawyer ---">
+    <meta property="og:image" content="{{ asset('gambar/logo.png') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/') }}">
+    <meta property="twitter:title" content="Law Firm | M. Andrean Saefudin & Co">
+    <meta property="twitter:description" content=" --- Corporate and Litigation Lawyer ---">
+    <meta property="twitter:image" content="{{ asset('gambar/logo.png') }}">
 @endpush
 
 @section('content')
@@ -202,39 +268,43 @@
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                            <img src="{{ asset('gambar/tim/andrean.jpeg') }}" class="d-block w-100 position-relative" alt="Andrean Saefudin & Co" >
-                            <div class="title_partner text-center">
-                                <div class="name">
-                                    M. Andrean Saefudin S.H
+                            {{-- <div class="carousel-item active">
+                                <img src="{{ asset('gambar/tim/andrean.jpeg') }}" class="d-block w-100 position-relative" alt="Andrean Saefudin & Co" >
+                                <div class="title_partner text-center">
+                                    <div class="name">
+                                        M. Andrean Saefudin S.H
+                                    </div>
+                                    <div class="role">
+                                        Founder
+                                    </div>
                                 </div>
-                                <div class="role">
-                                    Founder
+                            </div> --}}
+                            @foreach ($tim as $index => $item)
+                                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                    <a href="{{ route('partner', $item->id) }}">
+                                        <img src="{{ url($item->image) }}" class="d-block w-100 position-relative" alt="Andrean Saefudin & Co" >
+                                        <div class="title_partner text-center">
+                                            <div class="name">
+                                                {{ $item->nama }}
+                                            </div>
+                                            <div class="role">
+                                                {{ $item->title }}
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-                            </div>
-                            <div class="carousel-item">
-                            <img src="{{ asset('gambar/tim/elsa.jpg') }}" class="d-block w-100" alt="Andrean Saefudin & Co">
-                            <div class="title_partner text-center">
-                                <div class="name">
-                                    Elsa Puspa S.H
+                            @endforeach
+                            {{-- <div class="carousel-item">
+                                <img src="{{ asset('gambar/tim/elsa.jpg') }}" class="d-block w-100" alt="Andrean Saefudin & Co">
+                                <div class="title_partner text-center">
+                                    <div class="name">
+                                        Elsa Puspa S.H
+                                    </div>
+                                    <div class="role">
+                                        Co Founder
+                                    </div>
                                 </div>
-                                <div class="role">
-                                    Co Founder
-                                </div>
-                            </div>
-                            </div>
-                            <div class="carousel-item">
-                            <img src="{{ asset('gambar/tim/patur.jpg') }}" class="d-block w-100" alt="Andrean Saefudin & Co">
-                            <div class="title_partner text-center">
-                                <div class="name">
-                                    Paturahman Fikri S.H
-                                </div>
-                                <div class="role">
-                                    Partner
-                                </div>
-                            </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -308,64 +378,110 @@
             </div>
 
             {{-- video --}}
-            <div class="row video__section">
-                <div class="col-md-4">
-                    <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/Edjkt0Yp4ls" title="YouTube video" allowfullscreen></iframe>
-                    </div>
-                    <h3 class="title mt-2">
-                        M Andrean Saefudin
+            <div
+              id="oc-posts"
+              class="owl-carousel posts-carousel carousel-widget posts-md"
+              data-pagi="true"
+              data-items-xs="1"
+              data-items-sm="2"
+              data-items-md="3"
+              data-items-lg="3"
+              auto-play="true"
+            >
+              <!-- Video -->
+              <div class="oc-item">
+                <div class="entry">
+                  <div class="entry-image">
+                    <iframe
+                      src="https://www.youtube.com/embed/Edjkt0Yp4ls"
+                      width="500"
+                      height="281"
+                      allow="autoplay; fullscreen"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  <div class="entry-title title-xs nott">
+                    <h3>
+                      <a href="blog-single-full.html">M. Andrean Saefudin</a>
                     </h3>
-                    <div class="entry-meta">
-                        <ul>
-                        <li><i class="icon-calendar3"></i> 16th Feb 2021</li>
-                        <li class="second">
-                            <i class="icon-comments"></i>
-                        </li>
-                        <li class="second">
-                            <i class="icon-film"></i>
-                        </li>
-                        </ul>
-                    </div>
+                  </div>
+                  <div class="entry-meta">
+                    <ul>
+                      <li><i class="icon-calendar3"></i> 16th Feb 2021</li>
+                      <li>
+                        <a href="blog-single-full.html#comments"
+                          ><i class="icon-comments"></i> 19</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-film"></i></a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/dWqMkj6l7qo" title="YouTube video" allowfullscreen></iframe>
-                    </div>
-                    <h3 class="title mt-2">
-                        Bincang Tokoh
+              </div>
+              <div class="oc-item">
+                <div class="entry">
+                  <div class="entry-image">
+                    <iframe
+                      src="https://www.youtube.com/embed/dWqMkj6l7qo"
+                      width="500"
+                      height="281"
+                      allow="autoplay; fullscreen"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  <div class="entry-title title-xs nott">
+                    <h3>
+                      <a href="blog-single-full.html">Bincang Tokoh</a>
                     </h3>
-                    <div class="entry-meta">
-                        <ul>
-                        <li><i class="icon-calendar3"></i> 16th Feb 2021</li>
-                        <li class="second">
-                            <i class="icon-comments"></i>
-                        </li>
-                        <li class="second">
-                            <i class="icon-film"></i>
-                        </li>
-                        </ul>
-                    </div>
+                  </div>
+                  <div class="entry-meta">
+                    <ul>
+                      <li><i class="icon-calendar3"></i> 16th Feb 2021</li>
+                      <li>
+                        <a href="blog-single-full.html#comments"
+                          ><i class="icon-comments"></i> 19</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-film"></i></a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/gsV_U6XZHpw" title="YouTube video" allowfullscreen></iframe>
-                    </div>
-                    <h3 class="title mt-2">
-                        Pendekar Keadilan
+              </div>
+              <div class="oc-item">
+                <div class="entry">
+                  <div class="entry-image">
+                    <iframe
+                      src="https://www.youtube.com/embed/gsV_U6XZHpw"
+                      width="500"
+                      height="281"
+                      allow="autoplay; fullscreen"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  <div class="entry-title title-xs nott">
+                    <h3>
+                      <a href="blog-single-full.html">Pendekar Keadilan</a>
                     </h3>
-                    <div class="entry-meta">
-                        <ul>
-                        <li><i class="icon-calendar3"></i> 16th Feb 2021</li>
-                        <li class="second">
-                            <i class="icon-comments"></i>
-                        </li>
-                        <li class="second">
-                            <i class="icon-film"></i>
-                        </li>
-                        </ul>
-                    </div>
+                  </div>
+                  <div class="entry-meta">
+                    <ul>
+                      <li><i class="icon-calendar3"></i> 16th Feb 2021</li>
+                      <li>
+                        <a href="blog-single-full.html#comments"
+                          ><i class="icon-comments"></i> 19</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-film"></i></a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
+              </div>
             </div>
             {{-- endvideo --}}
         </div>
@@ -461,26 +577,118 @@
     <section class="tulisan mt-5">
         <div class="container">
             <div class="fancy-title title-center title-border topmargin">
-                <h5 class="text">Artikel Hukum</h5>
+                <h5 class="text">Artikel Hukum Terbaru</h5>
+            </div>
+
+            <div class="owl-carousel owl-theme mt-4">
+                @foreach ($tulisans as $tulisan)
+                    <div class="item" style="width: 240px">
+                        <a href="{{ route('detail-tulisan', $tulisan->slug) }}">
+                            <div class="card__artikel">
+                                <img src="{{ url($tulisan->image) }}" class="img__artikel" alt="{{ $tulisan->judul }}">
+
+                                <div class="mt-2">
+                                    <div class="judul">{{ Str::limit($tulisan->judul, 50) }}</div>
+                                    <div class="date mt-2"><i class="icon-calendar3"></i> {{ \Carbon\Carbon::parse($tulisan->created_at)->format('d, M Y') }}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
+    </section>
+
+    <section class="gallery">
+     <div class="container">
+            <h3>Gallery</h3>
+
+            <div
+              class="masonry-thumbs grid-container grid-4"
+              data-big="4"
+              data-lightbox="gallery"
+            >
+              <a
+                class="grid-item"
+                href="images/portfolio/full/1.jpg"
+                data-lightbox="gallery-item"
+                ><img src="images/portfolio/4/1.jpg" alt="Gallery Thumb 1"
+              /></a>
+              <a
+                class="grid-item"
+                href="images/portfolio/full/2.jpg"
+                data-lightbox="gallery-item"
+                ><img src="images/portfolio/4/2.jpg" alt="Gallery Thumb 2"
+              /></a>
+              <a
+                class="grid-item"
+                href="images/portfolio/full/3.jpg"
+                data-lightbox="gallery-item"
+                ><img src="images/portfolio/4/3.jpg" alt="Gallery Thumb 3"
+              /></a>
+              <a
+                class="grid-item"
+                href="images/portfolio/full/4.jpg"
+                data-lightbox="gallery-item"
+                ><img src="images/portfolio/4/4.jpg" alt="Gallery Thumb 4"
+              /></a>
+              <a
+                class="grid-item"
+                href="images/portfolio/full/5.jpg"
+                data-lightbox="gallery-item"
+                ><img src="images/portfolio/4/5.jpg" alt="Gallery Thumb 5"
+              /></a>
+              <a
+                class="grid-item"
+                href="images/portfolio/full/6.jpg"
+                data-lightbox="gallery-item"
+                ><img src="images/portfolio/4/6.jpg" alt="Gallery Thumb 6"
+              /></a>
+              <a
+                class="grid-item"
+                href="images/portfolio/full/7.jpg"
+                data-lightbox="gallery-item"
+                ><img src="images/portfolio/4/7.jpg" alt="Gallery Thumb 7"
+              /></a>
+              <a
+                class="grid-item"
+                href="images/portfolio/full/9.jpg"
+                data-lightbox="gallery-item"
+                ><img src="images/portfolio/4/9.jpg" alt="Gallery Thumb 9"
+              /></a>
+              <a
+                class="grid-item"
+                href="images/portfolio/full/10.jpg"
+                data-lightbox="gallery-item"
+                ><img src="images/portfolio/4/10.jpg" alt="Gallery Thumb 10"
+              /></a>
+            </div>
+          </div>
     </section>
 
 @endsection
 
 @push('addScript')
-
+    <script src="{{ asset('vendor/owl/jquery.js') }}"></script>
+<script src="{{ asset('vendor/owl/owl.carousel.js') }}"></script>
+<script src="{{ asset('js/plugins.easing.js') }}"></script>
+<script src="{{ asset('js/plugins.lightbox.js') }}"></script>
+<script src="{{ asset('js/plugins.fitvids.js') }}"></script>
     <script>
         $(document).ready(function(){
             $(".owl-carousel").owlCarousel({
                 loop:true,
-                dots: false,
+                dots: true,
                 autoplay: true,
+                center: true,
                 responsiveClass:true,
+                autoWidth:true,
+                margin:18,
+                nav:false,
                 responsive:{
                     0:{
                         items:1,
-                        nav:true
+                        nav:false
                     },
                     600:{
                         items:3,
@@ -488,8 +696,7 @@
                     },
                     1000:{
                         items:5,
-                        nav:true,
-                        loop:false
+                        nav:false,
                     }
                 }
             });

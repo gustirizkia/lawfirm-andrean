@@ -9,19 +9,19 @@
     <div class="collapse navbar-collapse " id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link {{ (request()->is('/')) ? 'active' : '' }}" aria-current="page" href="#">HOME</a>
+          <a class="nav-link {{ (request()->is('/')) ? 'active' : '' }}" aria-current="page" href="/">HOME</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{ (request()->is('layanan*')) ? 'active' : '' }}" href="{{ route('page-layanan') }}">LAYANAN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">ARTIKEL HUKUM</a>
+          <a class="nav-link {{ (request()->is('artikel*')) ? 'active' : '' }} {{ (request()->is('tulisan*')) ? 'active' : '' }}" href="{{ route('list-artikel') }}">ARTIKEL HUKUM</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">PKPU</a>
+          <a class="nav-link " href="#">PKPU</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">KONTAK KAMI</a>
+          <a class="nav-link {{ (request()->is('kontak*')) ? 'active' : '' }}" href="{{ route('kontakKami') }}">KONTAK KAMI</a>
         </li>
       </ul>
     </div>

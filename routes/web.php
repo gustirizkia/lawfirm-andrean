@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\LayananController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\TulisanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('index-home');
 Route::get('layanan', [LayananController::class, 'index'])->name('page-layanan');
 Route::post('layanan-submit', [LayananController::class, 'store'])->name('store-layanan');
-
-
+Route::get('tulisan/{slug}', [TulisanController::class, 'show'])->name('detail-tulisan');
+Route::get('artikel-hukum', [TulisanController::class, 'index'])->name('list-artikel');
+Route::get('dataArtikel', [TulisanController::class, 'dataArtikel'])->name('dataArtikel');
+Route::get('kontak-kami', [KontakController::class, 'index'])->name('kontakKami');
+Route::get('partner/{id}', [PartnerController::class, 'index'])->name('partner');

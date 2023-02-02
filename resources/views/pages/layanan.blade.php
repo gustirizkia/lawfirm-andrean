@@ -25,8 +25,8 @@
             color: white;
         }
         .card__layanan .title{
-            font-size: 26px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: bold;
             color: #ba9f40;
         }
         .deskripsi__singkat {
@@ -70,19 +70,18 @@
             </div>
         </div>
         <div class="row ">
-            @for ($i = 1; $i < 4; $i++)
-            <div class="col-md-4 ">
-                <div class="card card__layanan shadow-sm {{ $i === 2 ? 'active' : '' }}">
-                    <div class="card-body">
-                        <div class="title mb-2">PROSES LITIGASI</div>
-                        <div class="deskripsi__singkat">
-                            <ul>
-                                <li>Sengketa Komersial dan Konstruksi</li><li>Klaim PMH dan Wanprestasi Kontrak&nbsp;</li><li>Asuransi dan Sengketa Hak Intelektual</li><li>Kriminal dan Korupsi</li><li>Kepailitan dan PKPU</li><li>Sengketa Industrial dan Tenaga Kerja</li><li>Judicial Review Peraturan</li><li>Administration Judicial Review</li><li>Perubahan Nama</li><li>Pengangkatan Anak</li><li>Sengketa Hukum Keluarga&nbsp;</li><li>Perceraian dan Pembatalan Perkawinan</li><li>Gugatan Kelompok</li></ul>
+            @foreach ($items as $index => $item)
+                <div class="col-md-4 mb-3">
+                    <div class="card card__layanan shadow-sm h-100 {{ $index === 1 ? 'active' : '' }}">
+                        <div class="card-body">
+                            <div class="title mb-2">{{ $item->nama_layanan }}</div>
+                            <div class="deskripsi__singkat">
+                                {!! $item->deskripsi !!}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @endfor
+            @endforeach
         </div>
 
     </div>

@@ -4,16 +4,17 @@
 	use Request;
 	use DB;
 	use CRUDBooster;
+    use Illuminate\Support\Str;
 
-	class AdminLeadsController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminTulisansController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
-			$this->title_field = "nama";
+			$this->title_field = "judul";
 			$this->limit = "20";
 			$this->orderby = "id,desc";
-			$this->global_privilege = false;
+			$this->global_privilege = true;
 			$this->button_table_action = true;
 			$this->button_bulk_action = true;
 			$this->button_action_style = "button_icon";
@@ -25,37 +26,30 @@
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "leads";
+			$this->table = "tulisans";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Nama","name"=>"nama"];
-			$this->col[] = ["label"=>"Deskripsi","name"=>"deskripsi"];
-			$this->col[] = ["label"=>"Email","name"=>"email"];
-			$this->col[] = ["label"=>"Jenis","name"=>"jenis"];
-			$this->col[] = ["label"=>"Layanan","name"=>"layanan"];
-			$this->col[] = ["label"=>"Phone","name"=>"phone"];
+			$this->col[] = ["label"=>"Judul","name"=>"judul"];
+			$this->col[] = ["label"=>"Image","name"=>"image","image"=>true];
+			$this->col[] = ["label"=>"Keyword","name"=>"keyword"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3','width'=>'col-sm-10','placeholder'=>'You can only enter the letter only'];
-			$this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required|min:1|email','width'=>'col-sm-10','placeholder'=>'Please enter a valid email address'];
-			$this->form[] = ['label'=>'Phone','name'=>'phone','type'=>'number','validation'=>'required|numeric','width'=>'col-sm-10','placeholder'=>'You can only enter the number only'];
-			$this->form[] = ['label'=>'Jenis','name'=>'jenis','type'=>'text','validation'=>'required|min:1','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Layanan','name'=>'layanan','type'=>'text','validation'=>'required|min:1','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'textarea','validation'=>'required|string|min:5','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Image','name'=>'image','type'=>'upload','validation'=>'required|image|max:4000','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Judul','name'=>'judul','type'=>'text','validation'=>'required|string|min:3','width'=>'col-sm-10','help'=>'File types support : JPG, JPEG, PNG, GIF, BMP'];
+			$this->form[] = ['label'=>'Keyword','name'=>'keyword','type'=>'text','validation'=>'required|min:1|max:200','width'=>'col-sm-10','placeholder'=>'You can only enter the letter only'];
+			$this->form[] = ['label'=>'Tulisan','name'=>'body','type'=>'wysiwyg','validation'=>'required|string|min:5','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ["label"=>"Deskripsi","name"=>"deskripsi","type"=>"textarea","required"=>TRUE,"validation"=>"required|string|min:5|max:5000"];
-			//$this->form[] = ["label"=>"Email","name"=>"email","type"=>"email","required"=>TRUE,"validation"=>"required|min:1|max:255|email|unique:leads","placeholder"=>"Please enter a valid email address"];
-			//$this->form[] = ["label"=>"Jenis","name"=>"jenis","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
-			//$this->form[] = ["label"=>"Layanan","name"=>"layanan","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
-			//$this->form[] = ["label"=>"Nama","name"=>"nama","type"=>"text","required"=>TRUE,"validation"=>"required|string|min:3|max:70","placeholder"=>"You can only enter the letter only"];
-			//$this->form[] = ["label"=>"Phone","name"=>"phone","type"=>"number","required"=>TRUE,"validation"=>"required|numeric","placeholder"=>"You can only enter the number only"];
+			//$this->form[] = ['label'=>'Image','name'=>'image','type'=>'upload','validation'=>'required|image|max:4000','width'=>'col-sm-10'];
+			//$this->form[] = ['label'=>'Judul','name'=>'judul','type'=>'text','validation'=>'required|string|min:3','width'=>'col-sm-10','help'=>'File types support : JPG, JPEG, PNG, GIF, BMP'];
+			//$this->form[] = ['label'=>'Keyword','name'=>'keyword','type'=>'text','validation'=>'required|min:1','width'=>'col-sm-10','placeholder'=>'You can only enter the letter only'];
+			//$this->form[] = ['label'=>'Tulisan','name'=>'body','type'=>'wysiwyg','validation'=>'required|string|min:5','width'=>'col-sm-10'];
 			# OLD END FORM
 
 			/*
@@ -84,8 +78,7 @@
 	        | @showIf 	   = If condition when action show. Use field alias. e.g : [id] == 1
 	        |
 	        */
-            $this->addaction = array();
-            $this->addaction[] = ['label'=>'Whatsapp','target'=>'_blank','url'=>'https://wa.me/[phone]?text=Hallo saya admin m-andreansaefudin.com','icon'=>'fa fa-whatsapp','color'=>'warning'];
+	        $this->addaction = array();
 
 
 	        /*
@@ -266,6 +259,14 @@
 	    */
 	    public function hook_before_add(&$postdata) {
 	        //Your code here
+            $slug = Str::slug($postdata['judul']);
+            $cek = DB::table('tulisans')->where('slug', $slug)->first();
+            if($cek){
+                $random = time();
+                $slug = "$slug-$random";
+            }
+
+            $postdata['slug'] = $slug;
 
 	    }
 
