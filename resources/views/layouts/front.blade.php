@@ -38,13 +38,17 @@
             font-weight: 600;
         }
 
-        .text__primary{
-            color: #9c8a49;
+        .text__primary {
+            color: #003366;
         }
-
-        .btn__primary{
-            background: #9c8a49;
+        
+        .btn__primary {
+            background: #003366;
             color: white;
+        }
+        
+        .bg__primary{
+            background-color: #003366;
         }
 
         .fancy-title{
@@ -124,7 +128,7 @@
         }
 
         .widget-title {
-            background: linear-gradient(120deg,#9c8a49 35%,#60552d 74%);
+            background: linear-gradient(120deg,#003366 35%,#0069d3 74%);
             font-family: source sans pro,open sans,sans-serif;
             color: #fff !important;
             padding: 0 9px;
@@ -157,16 +161,16 @@
     @include('includes.bot-footer')
 
     <!-- Optional JavaScript; choose one of the two! -->
-
+    <script src="/js/jquery.js"></script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/plugins.min.js') }}"></script>

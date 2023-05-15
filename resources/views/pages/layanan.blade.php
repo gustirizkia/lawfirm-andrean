@@ -11,14 +11,14 @@
             border: unset;
         }
         .card__layanan.active{
-            background-color: #ba9f40;
+            background-color: #003366;
             color: white !important;
         }
         .card__layanan.active .title, .card__layanan.active .deskripsi__singkat, .card__layanan.active ul li::marker{
             color: white !important;
         }
         .card__layanan:hover{
-            background-color: #ba9f40;
+            background-color: #003366;
             color: white;
         }
         .card__layanan:hover .title, .card__layanan:hover .deskripsi__singkat, .card__layanan:hover ul li::marker{
@@ -27,20 +27,18 @@
         .card__layanan .title{
             font-size: 20px;
             font-weight: bold;
-            color: #ba9f40;
+            /* color: #ba9f40; */
         }
         .deskripsi__singkat {
             color: rgb(111, 111, 111);
         }
-        ul li::marker {
+        /* ul li::marker {
             color: #ba9f40;
-        }
+        } */
         h4{
             margin-bottom: unset;
         }
         .kontak{
-            background: rgb(237,232,214);
-            background: linear-gradient(0deg, rgba(237,232,214,1) 0%, rgba(249,250,254,1) 38%);
         }
         .kontak label{
             margin-bottom: 10px;
@@ -74,7 +72,7 @@
                 <div class="col-md-4 mb-3">
                     <div class="card card__layanan shadow-sm h-100 {{ $index === 1 ? 'active' : '' }}">
                         <div class="card-body">
-                            <div class="title mb-2">{{ $item->nama_layanan }}</div>
+                            <div class="title mb-2 color-dark">{{ $item->nama_layanan }}</div>
                             <div class="deskripsi__singkat">
                                 {!! $item->deskripsi !!}
                             </div>
@@ -152,7 +150,7 @@
                         <textarea name="deskripsi" required  rows="6" placeholder="jelaskan secara rinci . . ." class="form-control"></textarea>
                     </div>
                     <div class="col-md-12 mt-4">
-                        <button type="submit" class="btn btn__message ">Kirim Pesan</button>
+                        <button type="submit" class="btn btn__primary ">Kirim Pesan</button>
                     </div>
                 </div>
             </div>

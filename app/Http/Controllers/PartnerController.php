@@ -7,9 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 class PartnerController extends Controller
 {
-    public function index($id){
-        $item = DB::table('tims')->find($id);
-
+    public function index($slug){
+        $item = DB::table('tims')->where('slug', $slug)->first();
         if(!$item){
             return redirect()->route('index-home');
         }

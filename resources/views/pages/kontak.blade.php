@@ -58,7 +58,7 @@
                                 <i class="bi bi-whatsapp"></i>
                             </div>
                             <div class="fs-5">
-                                08991169449
+                                082122389293
                             </div>
                         </a>
                     </div>
@@ -101,9 +101,6 @@
                      style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
-                <div class="mt-2 text-sm">
-                    <small>Jl. TB Simatupang No.5, RT.3/RW.3, Cilandak Tim., Ps. Minggu, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12560</small>
-                </div>
             </div>
             <div class="col-md-6">
                 <div class="kontak py-5">
@@ -166,7 +163,7 @@
                                 <textarea name="deskripsi" required  rows="6" placeholder="jelaskan secara rinci . . ." class="form-control"></textarea>
                             </div>
                             <div class="col-md-12 mt-4">
-                                <button type="submit" class="btn btn__message ">Kirim Pesan</button>
+                                <button type="submit" class="btn btn__primary ">Kirim Pesan</button>
                             </div>
                         </div>
                     </form>

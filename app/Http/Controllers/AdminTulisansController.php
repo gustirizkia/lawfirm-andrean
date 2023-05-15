@@ -291,7 +291,18 @@
 	    |
 	    */
 	    public function hook_before_edit(&$postdata,$id) {
-	        //Your code here
+		//Your code here
+
+			$slug = Str::slug($postdata['judul']);
+
+			$slugCek = DB::table('tulisans')->where('id', $id)->first();
+			$cek = DB::table('tulisans')->where('slug', $slug)->first();
+			if ($cek && $slugCek->slug !== $slug) {
+				$random = time();
+				$slug = "$slug-$random";
+			}
+
+			$postdata['slug'] = $slug;
 
 	    }
 

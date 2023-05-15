@@ -44,8 +44,7 @@
 @endpush
 
 @section('content')
-    <div class="container my-md-4 my-2">
-        <img src="https://www.hmikomfaktek.com/_nuxt/img/tulisan1.64db9e7.svg" alt="Andrean Saefudin" class="img-fluid">
+    <div class="container my-md-4 my-2" style="min-height: 100vh">
         <div class="mt-md-4 mt-2">
             <div class="row" id="row__artikel">
                 @foreach ($items as $tulisan)

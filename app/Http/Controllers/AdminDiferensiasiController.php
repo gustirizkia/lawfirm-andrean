@@ -4,14 +4,13 @@
 	use Request;
 	use DB;
 	use CRUDBooster;
-	use Illuminate\Support\Str;
 
-	class AdminTimsController extends \crocodicstudio\crudbooster\controllers\CBController {
+	class AdminDiferensiasiController extends \crocodicstudio\crudbooster\controllers\CBController {
 
 	    public function cbInit() {
 
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
-			$this->title_field = "nama";
+			$this->title_field = "title";
 			$this->limit = "20";
 			$this->orderby = "id,desc";
 			$this->global_privilege = true;
@@ -26,29 +25,25 @@
 			$this->button_filter = true;
 			$this->button_import = false;
 			$this->button_export = false;
-			$this->table = "tims";
+			$this->table = "another_contents";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
 
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
-			$this->col[] = ["label"=>"Image","name"=>"image","image"=>true];
-			$this->col[] = ["label"=>"Nama","name"=>"nama"];
-			$this->col[] = ["label"=>"Title","name"=>"title"];
+			$this->col[] = ["label"=>"Nama","name"=>"title"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
-			$this->form[] = ['label'=>'Image','name'=>'image','type'=>'upload','validation'=>'required|image|max:5000','width'=>'col-sm-10','help'=>'Tipe file yang didukung: JPG, JPEG, PNG, GIF, BMP'];
-			$this->form[] = ['label'=>'Title','name'=>'title','type'=>'text','validation'=>'required|string|min:3|max:200','width'=>'col-sm-9','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
-			$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:200','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'wysiwyg','validation'=>'required|string|min:5|max:7000','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Nama','name'=>'title','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'Konten','name'=>'Konten','type'=>'wysiwyg','validation'=>'required|string|min:5','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
-			//$this->form[] = ['label'=>'Image','name'=>'image','type'=>'upload','validation'=>'required|image|max:5000','width'=>'col-sm-10','help'=>'Tipe file yang didukung: JPG, JPEG, PNG, GIF, BMP'];
-			//$this->form[] = ['label'=>'Nama','name'=>'nama','type'=>'text','validation'=>'required|string|min:3|max:200','width'=>'col-sm-10','placeholder'=>'Anda hanya dapat memasukkan huruf saja'];
-			//$this->form[] = ['label'=>'Deskripsi','name'=>'deskripsi','type'=>'wysiwyg','validation'=>'required|string|min:5|max:7000','width'=>'col-sm-10'];
+			//$this->form[] = ["label"=>"Page","name"=>"page","type"=>"text","required"=>TRUE,"validation"=>"required|min:1|max:255"];
+			//$this->form[] = ["label"=>"Title","name"=>"title","type"=>"text","required"=>TRUE,"validation"=>"required|string|min:3|max:70","placeholder"=>"Anda hanya dapat memasukkan huruf saja"];
+			//$this->form[] = ["label"=>"Konten","name"=>"Konten","type"=>"textarea","required"=>TRUE,"validation"=>"required|string|min:5|max:5000"];
 			# OLD END FORM
 
 			/* 
@@ -236,6 +231,7 @@
 	    */
 	    public function hook_query_index(&$query) {
 	        //Your code here
+			$query->where('page', 'diferensiasi');
 	            
 	    }
 
@@ -256,16 +252,9 @@
 	    | @arr
 	    |
 	    */
-	    public function hook_before_add(&$postdata) {
-		//Your code here
-		$slug = Str::slug($postdata['nama']);
-		$cek = DB::table('tims')->where('slug', $slug)->first();
-		if ($cek) {
-			$random = time();
-			$slug = "$slug-$random";
-		}
-
-		$postdata['slug'] = $slug;
+	    public function hook_before_add(&$postdata) {        
+	        //Your code here
+			$postdata['page'] = 'diferensiasi';
 
 	    }
 
@@ -289,19 +278,8 @@
 	    | @id       = current id 
 	    | 
 	    */
-	    public function hook_before_edit(&$postdata,$id) {
-		//Your code here
-
-			$slug = Str::slug($postdata['nama']);
-
-			$slugCek = DB::table('tims')->where('id', $id)->first();
-			$cek = DB::table('tims')->where('slug', $slug)->first();
-			if ($cek && $slugCek->slug !== $slug) {
-				$random = time();
-				$slug = "$slug-$random";
-			}
-
-			$postdata['slug'] = $slug;
+	    public function hook_before_edit(&$postdata,$id) {        
+	        //Your code here
 
 	    }
 
